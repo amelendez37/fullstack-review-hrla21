@@ -18,9 +18,9 @@ const Player = mongoose.model('Player', playerSchema);
 
 const saveOne = (player, callback) => {
   // if player is already in db
-  Player.find({firstName: player.firstname, lastname: player.lastname}, (err, data) => {
-    // notify with response
+  Player.find({firstName: player.firstName, lastname: player.lastName}, (err, data) => {
     if (err) { console.log(err); }
+    // notify with response
     if (!!data.length) {
       callback('Player is already in the database');
     } else {
@@ -34,4 +34,11 @@ const saveOne = (player, callback) => {
   });
 };
 
+const queryAllPlayers = (callback) => {
+  Player.find((err, players) => {
+    callback(players);
+  });
+};
+
 exports.saveOne = saveOne;
+exports.queryAllPlayers = queryAllPlayers;
